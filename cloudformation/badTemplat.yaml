@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "UC1 BAD - IAM wildcard permissions (expected to fail Wiz IaC scan)"
+
+Resources:
+  InsecureRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: internship-ivo-uc1-wildcard-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action: sts:AssumeRole
+
+      Policies:
+        - PolicyName: InsecureWildcardPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: AdminWildcard
+                Effect: Allow
+                Action: "*"
+                Resource: "*"
