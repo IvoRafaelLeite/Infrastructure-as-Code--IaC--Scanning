@@ -6,7 +6,6 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       RoleName: internship-ivo-uc1-wildcard-role
-      
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
