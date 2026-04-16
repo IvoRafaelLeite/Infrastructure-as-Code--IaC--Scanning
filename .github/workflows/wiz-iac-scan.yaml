@@ -3,7 +3,6 @@ name: wiz-iac-scan
 on:
   pull_request:
     branches: [ "main" ]
-
 jobs:
   iac-scan:
     runs-on: ubuntu-latest
@@ -23,5 +22,4 @@ jobs:
       - name: Run Wiz IaC scan (fail on policy violations)
         run: |
           ./wizcli iac scan \
-            --path ./cloudformation \
-            --policy "Ivo-IaC-Policy"
+            --path ./cloudformation \ --policy "Ivo-IaC-Policy"
