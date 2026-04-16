@@ -22,4 +22,5 @@ jobs:
       - name: Run Wiz IaC scan (fail on policy violations)
         run: |
           ./wizcli iac scan \
-            --path ./cloudformation \ --policy "Ivo-IaC-Policy"
+            --path ./cloudformation \ 
+            --policy "Ivo-IaC-Policy"
