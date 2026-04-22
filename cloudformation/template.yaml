@@ -33,7 +33,6 @@ Resources:
                   - s3:ListBucket
                 Resource:
                   - !Sub "arn:aws:s3:::${BucketName}"
-
               - Sid: RWObjects
                 Effect: Allow
                 Action:
