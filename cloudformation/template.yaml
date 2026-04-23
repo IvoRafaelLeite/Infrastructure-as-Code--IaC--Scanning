@@ -8,6 +8,7 @@ Parameters:
     Default: example-bucket-name-change-me
     Description: "Bucket name used to scope permissions (demo)."
 
+
 Resources:
   SecureRole:
     Type: AWS::IAM::Role
