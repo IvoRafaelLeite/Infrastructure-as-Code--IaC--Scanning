@@ -1,0 +1,46 @@
+
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "UC1 FIXED - Least privilege IAM policy (expected to pass Wiz IaC scan)"
+
+Parameters:
+  BucketName:
+    Type: String
+    Default: example-bucket-name-change-me
+    Description: "Bucket name used to scope permissions (demo)."
+
+
+Resources:
+  SecureRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: internship-ivo-uc1-leastpriv-role
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action: sts:AssumeRole
+
+      Policies:
+        - PolicyName: ScopedS3Policy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: ListBucket
+                Effect: Allow
+                Action:
+                  - s3:ListBucket
+                Resource:
+                  - !Sub "arn:aws:s3:::${BucketName}"
+
+              - Sid: RWObjects
+                Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:DeleteObject
+                Resource:
+                  - !Sub "arn:aws:s3:::${BucketName}/*"
+                  
