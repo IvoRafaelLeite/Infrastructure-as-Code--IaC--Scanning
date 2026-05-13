@@ -1,19 +1,11 @@
-
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "UC1 FIXED - Least privilege IAM policy (expected to pass Wiz IaC scan)"
-
-Parameters:
-  BucketName:
-    Type: String
-    Default: example-bucket-name-change-me
-    Description: "Bucket name used to scope permissions (demo)."
-
+Description: "UC1 BAD - IAM wildcard permissions (expected to fail Wiz IaC scan)"
 
 Resources:
-  SecureRole:
+  InsecureRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: internship-ivo-uc1-leastpriv-role
+      RoleName: internship-ivo-uc1-wildcard-role
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -24,23 +16,11 @@ Resources:
             Action: sts:AssumeRole
 
       Policies:
-        - PolicyName: ScopedS3Policy
+        - PolicyName: InsecureWildcardPolicy
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
-              - Sid: ListBucket
+              - Sid: AdminWildcard
                 Effect: Allow
-                Action:
-                  - s3:ListBucket
-                Resource:
-                  - !Sub "arn:aws:s3:::${BucketName}"
-
-              - Sid: RWObjects
-                Effect: Allow
-                Action:
-                  - s3:GetObject
-                  - s3:PutObject
-                  - s3:DeleteObject
-                Resource:
-                  - !Sub "arn:aws:s3:::${BucketName}/*"
-                  
+                Action: "*"
+                Resource: "*"
